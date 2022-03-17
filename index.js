@@ -29,6 +29,7 @@ module.exports = function(source) {
 
 	var missingFileMode = false;
 	function getFileContent(context, request) {
+		var _originRequest = request;
 		request = loaderUtils.urlToRequest(request, query.root)
 		var baseRequest = request;
 		var filePath;
@@ -39,7 +40,7 @@ module.exports = function(source) {
 		var isSync = true;
 		resolve(context, request, function(err, _request) {
 			if(err) {
-				resolve(context, request, function(err2, _request) {
+				resolve(context, _originRequest, function(err2, _request) {
 					if(err2) return callback(err2);
 
 					request = _request;
